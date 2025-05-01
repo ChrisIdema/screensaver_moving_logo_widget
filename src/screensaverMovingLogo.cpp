@@ -14,7 +14,7 @@ void screensaverMovingLogo::initialize()
     screensaverMovingLogoBase::initialize();
 
 #ifdef SIMULATOR
-    srand(unsigned int(time(nullptr)));
+    //srand(unsigned int(time(nullptr)));
 #endif
 
     int image_width = logo.getWidth();
@@ -59,9 +59,9 @@ void screensaverMovingLogo::initialize()
 
     float scale;
 
-    if (x >= screen_width - image_width)
+    if (x > max_x)
     {
-        x = float(screen_width - image_width - 1);   
+        x = float(max_x);
         scale = (x - x_old) / vectorX;
         vectorX *= scale;
         vectorY *= scale;
@@ -76,10 +76,9 @@ void screensaverMovingLogo::initialize()
         y = y_old + vectorY;
     }
 
-
-    if (y >= screen_height - image_height)
+    if (y > max_y)
     {
-        y = float(screen_height - image_height - 1);
+        y = float(max_y);
         scale = (y - y_old) / vectorY;
         vectorX *= scale;
         vectorY *= scale;
@@ -98,8 +97,6 @@ void screensaverMovingLogo::initialize()
     x = roundf(x);
 
     // calculate distance relative to width to allow constant speed
-   // todo find an approximation without using sqrt
-    //float distance = sqrtf((x_old - x) * (x_old - x) + (y_old - y) * (y_old - y)) / max_x;
     float distance = (fabsf(x_old - x) + fabsf(y_old - y)) / max_x; //manhattan distance
 
 
@@ -189,14 +186,9 @@ void screensaverMovingLogo::handleTickEvent()
         x = roundf(x);
 
         // calculate distance relative to width to allow constant speed
-        //float distance = sqrtf((x_old - x) * (x_old - x) + (y_old - y) * (y_old - y)) / max_x;
-
         float distance = (fabsf(x_old - x) + fabsf(y_old - y)) / max_x; //manhattan distance
 
-
-
         logo.startMoveAnimation(int(x), int(y), int(speed * distance));
-
     }
 }
 
