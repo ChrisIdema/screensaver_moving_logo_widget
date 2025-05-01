@@ -14,26 +14,18 @@ public:
 
     virtual void handleTickEvent();
 
-    void setImage();
+    void setImage(const Bitmap& bmp);
     void registerBounceCallback();
-    void setRandomSeed();
-
-    void setFrameRate();
+    //void setRandomSeed();
+    //void setFrameRate();
 
 protected:
 
-    int x, y;
+    float x, y;
     float speed;
-    //float speedX;
-    //float speedY;
-
-    float destX;
-    float destY;
-
 
     float vectorX;
     float vectorY;
-
 };
 
 #endif // SCREENSAVERMOVINGLOGO_HPP
